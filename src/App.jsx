@@ -20,11 +20,11 @@ const App = () => {
     <Router>
       <div>
         <NavBar />
-        <switch>
+        <Switch>
           <Route exact path="/">
             <Products products={products} />
           </Route>
-        </switch>
+        </Switch>
       </div>
     </Router>
   );

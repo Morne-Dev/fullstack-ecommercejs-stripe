@@ -1,5 +1,6 @@
 import { Grid, Container } from "@material-ui/core";
 import Product from "../Product";
+import Banner from "../Banner"
 
 
 const Products = ({products}) => {
@@ -7,6 +8,7 @@ console.log("products ===", products);
 
   return (
     <div>
+      <Banner />
       <Container id="products">
         <Grid container spacing={4}>
           {products.map((product) => {
