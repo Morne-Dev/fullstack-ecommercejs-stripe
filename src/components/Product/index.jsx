@@ -10,7 +10,7 @@ import {
 import { ShoppingCart } from "@material-ui/icons";
 import "./style.css";
 
-const Product = ({ product, addProducts = () => {} }) => (
+const Product = ({ product, addProduct = () => {} }) => (
   <Card className="custom-card">
     <CardActionArea>
       <CardMedia 
@@ -45,3 +45,5 @@ const Product = ({ product, addProducts = () => {} }) => (
     </CardActions>
   </Card>
 )
+
+export default Product;
