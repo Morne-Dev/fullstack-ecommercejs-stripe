@@ -7,11 +7,12 @@ import {
     Typography,
   } from "@material-ui/core";
   import { ShoppingCart } from "@material-ui/icons";
-  import { Link } from "react-router-dom";
+  import { Link, useLocation } from "react-router-dom";
   
   import "./style.css";
   
   const NavBar = ({ basketItems, totalCost }) => {
+    const location = useLocation();
     return (
       <>
         <AppBar position="fixed" className="custom-navbar">
@@ -31,7 +32,13 @@ import {
                   className="logo"
                 />
               </Typography>
-              
+              {location.pathname === "/basket" ? (
+              <div className="basket-wrapper">
+                <h2>
+                  Total cost: <strong>{totalCost}</strong>
+                </h2>
+              </div>
+            ) : (
               <div className="basket-wrapper">
                 <IconButton
                   component={Link}
@@ -44,6 +51,7 @@ import {
                   </Badge>
                 </IconButton>
               </div>
+            )}
             </Toolbar>
           </Container>
         </AppBar>

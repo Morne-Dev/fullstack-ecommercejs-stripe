@@ -1,0 +1,129 @@
+#basket {
+  margin-top: 120px;
+  padding-bottom: 30px;
+}
+
+#basket .MuiButton-containedSecondary {
+  color: #0d1117;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.actions a {
+  color: #000000;
+  margin-left: 15px;
+  background-color: #03dac5;
+}
+
+.actions a:hover {
+  background-color: #22c5b5;
+}
+
+/*=== Custom Card ===*/
+
+.MuiCard-root .custom-card {
+  background-color: #21262d;
+  color: #c9d1d9;
+  transition: all 0.5s ease-in-out;
+}
+
+.MuiCard-root .custom-card:hover {
+  transform: scale(1.05);
+  color: #c9d1d9;
+  transition: all 0.5s ease-in-out;
+}
+
+.custom-card .content {
+  padding-bottom: 0;
+}
+
+.custom-card .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-card .card-image {
+  padding: 10px 10px 0 10px;
+}
+
+.custom-card p {
+  color: #c9d1d9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-card .price {
+  margin-top: 10px;
+  color: #03dac5;
+}
+
+.custom-card .basket-item-price {
+  color: #03dac5;
+  margin-bottom: 0;
+}
+
+.actions-content {
+  display: flex;
+}
+
+.actions-content h2 {
+  flex-grow: 1;
+}
+
+.custom-card .custom-button {
+  color: #03dac5;
+}
+
+.custom-card .custom-button:hover {
+  background-color: #bb86fc;
+  color: #c9d1d9;
+}
+
+.custom-card .custom-button svg {
+  margin-right: 10px;
+}
+
+.custom-card .increase-product-quantity {
+  color: #03dac5;
+  border-color: #03dac5;
+}
+
+/* ========= Basket Banner =========== */
+.basket-banner {
+  padding-top: 150px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: #21262d;
+  background-image: linear-gradient(to bottom right, #121212, #3d4a5d);
+}
+
+.basket-banner > div > div {
+  align-items: center;
+}
+
+.basket-banner .brand {
+  display: flex;
+  align-items: center;
+}
+
+.basket-banner .brand svg {
+  width: 100%;
+  font-size: 220px;
+}
+
+.basket-banner .title {
+  font-size: 45px;
+  margin-bottom: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.basket-banner a.shopping-button {
+  color: #000000;
+  background-color: #03dac5;
+}
