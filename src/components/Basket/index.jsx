@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 import Spinner from "../Spinner";
-import { Banner } from "./Banner";
+import Banner from "./Banner";
 
 import "./style.css";
 
@@ -24,7 +24,8 @@ const Basket = ({
   RemoveItemFromBasket,
 }) => {
   const [showSpinner, setShowSpinner] = useState(true);
-  const loading = () => {
+
+  const Loading = () => {
     setTimeout(() => {
       setShowSpinner(false);
     }, 2000);
@@ -33,8 +34,9 @@ const Basket = ({
     }
     return <Banner />;
   };
+
     if (!basketData.line_items || !basketData.line_items.length) return Loading();
-        return (
+    return (
         <Container id="basket">
             <Grid container justify="center" spacing={4}>
                 {basketData.line_items.map((product) => {
@@ -133,7 +135,7 @@ const Basket = ({
                 </Button>
             </div>
         </Container>
-        );
+    );
 };
 
 export default Basket;
