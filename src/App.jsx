@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { commerce } from "./lib/commerce";
+import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Products from "./components/Products";
+import { commerce } from "./lib/commerce";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import Products from "./components/Products";
 import Basket from "./components/Basket";
 import Checkout from "./components/Checkout";
 
@@ -14,7 +15,7 @@ const App = () => {
   const [orderError, setOrderError] = useState("");
 
   const fetchProducts = async () => {
-  const response = await commerce.products.list();
+    const response = await commerce.products.list();
     setProducts((response && response.data) || []);
   };
 
@@ -23,18 +24,13 @@ const App = () => {
     setBasketData(response);
   };
 
-  useEffect(() => {
-    fetchProducts();
-    fetchBasketData();
-  }, []);
-
   const addProduct = async (productId, quantity) => {
     const response = await commerce.cart.add(productId, quantity);
     setBasketData(response.cart);
   };
 
-  const updateProduct = async (productId, quantity) => {
-    const response = await commerce.cart.update(productId, { quantity });
+  const RemoveItemFromBasket = async (itemId) => {
+    const response = await commerce.cart.remove(itemId);
     setBasketData(response.cart);
   };
 
@@ -43,11 +39,16 @@ const App = () => {
     setBasketData(response.cart);
   };
 
-  const RemoveItemFromBasket = async (itemId) => {
-    const response = await commerce.cart.remove(itemId);
+  const updateProduct = async (productId, quantity) => {
+    const response = await commerce.cart.update(productId, { quantity });
     setBasketData(response.cart);
   };
-  
+
+  const refreshBasket = async () => {
+    const newBasketData = await commerce.cart.refresh();
+    setBasketData(newBasketData);
+  };
+
   const handleCheckout = async (checkoutId, orderData) => {
     try {
       // const incomingOrder = await commerce.checkout.capture(
@@ -66,10 +67,17 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    fetchProducts();
+    fetchBasketData();
+  }, []);
+
   return (
     <Router>
       <div>
-        <NavBar basketItems={basketData.total_items}
+        <CssBaseline />
+        <NavBar
+          basketItems={basketData.total_items}
           totalCost={
             (basketData.subtotal &&
               basketData.subtotal.formatted_with_symbol) ||
@@ -89,11 +97,12 @@ const App = () => {
             />
           </Route>
           <Route exact path="/checkout">
-            <Checkout 
-            orderInfo={orderInfo}
-            orderError={orderError}
-            basketData={basketData}
-            handleCheckout={handleCheckout} />
+            <Checkout
+              orderInfo={orderInfo}
+              orderError={orderError}
+              basketData={basketData}
+              handleCheckout={handleCheckout}
+            />
           </Route>
         </Switch>
         <Footer />
