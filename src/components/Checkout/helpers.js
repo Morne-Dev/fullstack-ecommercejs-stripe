@@ -1,6 +1,6 @@
 import CheckoutForm from "./CheckoutForm";
 import BookingDetails from "./BookingDetails";
-// import Confirmation from "./Confirmation";
+import Confirmation from "./Confirmation";
 import Payment from "./Payment";
 
 export const renderRelatedComponent = ({

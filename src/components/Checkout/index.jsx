@@ -21,7 +21,7 @@ const usePreviousState = (value) => {
   return ref.current;
 };
 
-const Checkout = ({ basketData }) => {
+const Checkout = ({ basketData, handleCheckout, orderInfo, orderError }) => {
     const [user, setUser] = useState({
         city: "",
         email: "",
@@ -211,15 +211,15 @@ console.log({ checkoutData });
             </Typography>
             {renderRelatedComponent({
             user,
-            // orderInfo,
-            // orderError,
+            orderInfo,
+            orderError,
             bookingStep,
             handleChange,
             handleSubmit,
             checkoutData,
             handleBackStep,
             handleNextStep,
-            // handleCheckout,
+            handleCheckout,
             handleSelectChange,
           })}
           </Paper>

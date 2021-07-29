@@ -10,6 +10,8 @@ import Checkout from "./components/Checkout";
 const App = () => {
   const [products, setProducts] = useState([]);
   const [basketData, setBasketData] = useState({});
+  const [orderInfo, setOrderInfo] = useState({});
+  const [orderError, setOrderError] = useState("");
 
   const fetchProducts = async () => {
   const response = await commerce.products.list();
@@ -45,7 +47,24 @@ const App = () => {
     const response = await commerce.cart.remove(itemId);
     setBasketData(response.cart);
   };
-  console.log("BasketData =====>>>>>>, basketData");
+  
+  const handleCheckout = async (checkoutId, orderData) => {
+    try {
+      // const incomingOrder = await commerce.checkout.capture(
+      //   checkoutId,
+      //   orderData
+      // );
+
+      setOrderInfo(orderData);
+
+      refreshBasket();
+    } catch (error) {
+      setOrderError(
+        (error.data && error.data.error && error.data.error.message) ||
+          "There is an error occurred"
+      );
+    }
+  };
 
   return (
     <Router>
@@ -70,7 +89,11 @@ const App = () => {
             />
           </Route>
           <Route exact path="/checkout">
-            <Checkout basketData={basketData} />
+            <Checkout 
+            orderInfo={orderInfo}
+            orderError={orderError}
+            basketData={basketData}
+            handleCheckout={handleCheckout} />
           </Route>
         </Switch>
         <Footer />
