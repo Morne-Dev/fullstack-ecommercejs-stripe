@@ -1,7 +1,13 @@
-import { Paper,Container,Typography } from "@material-ui/core";
-import { useState, useEffect } from "react";
-import { commerce } from "./lib/commerce";
+import { Paper,
+  Container,
+  Typography,
+  CircularProgress,
+} from "@material-ui/core";
+import { useState, useEffect, useRef } from "react";
+import { commerce } from "../../lib/commerce";
 import CheckoutForm from "./CheckoutForm";
+import BookingDetails from "./BookingDetails";
+import { renderRelatedComponent } from "./helpers";
 import "./style.css";
 
 const convertObjectToArray = (countries) =>
@@ -30,10 +36,13 @@ const Checkout = ({ basketData }) => {
         shippingSubdivision: {},
         shippingSubdivisions: [],
     });
-
+    const [bookingStep, setBookingStep] = useState("order-address"); 
     const [checkoutData, setCheckoutData] = useState({});
     const previousShippingCountry = usePreviousState(user.shippingCountry);
-
+    const previousShippingSubdivision = usePreviousState(
+      user.shippingSubdivision
+    );
+  
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUser({ ...user, [name]: value });
@@ -61,7 +70,7 @@ const Checkout = ({ basketData }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // setBookingStep("order-details");
+        setBookingStep("order-details");
     };
 
     useEffect(() => {
@@ -161,30 +170,63 @@ const Checkout = ({ basketData }) => {
         user.shippingSubdivision,
         previousShippingSubdivision,
       ]);
-    
+
+      const handleNextStep = (e, step) => {
+        e.preventDefault();
+        setBookingStep(step);
+      };
+
+      const handleBackStep = (e, step) => {
+        e.preventDefault();
+        setBookingStep(step);
+      };
+
       if (
         !user.shippingSubdivisions.length ||
         !user.shippingCountries.length ||
         !user.shippingOptions.length ||
         !checkoutData.live
       ) {
-    return (
-        <div className="checkout">
-            <Container>
+        return (
+            <div className="checkout">
+              <Container>
                 <Paper className="paper" elevation={3}>
-                    <Typography align="center" variant="h5" gutterBottom>
-                        Checkout
-                    </Typography>
+                  <div className="products-spinner">
+                    <CircularProgress />
+                  </div>
                 </Paper>
-            </Container>
-            <CheckoutForm 
-            user={user} 
-            handleSubmit={handleSubmit}
-            handleChange={handleChange} 
-            handleSelectChange={handleSelectChange} 
-            />
-        </div>
+              </Container>
+            </div>
+          );
+        }
+
+console.log({ checkoutData });
+
+    return (
+      <div className="checkout">
+        <Container>
+          <Paper className="paper" elevation={3}>
+            <Typography align="center" variant="h5" gutterBottom>
+              Checkout
+            </Typography>
+            {renderRelatedComponent({
+            user,
+            // orderInfo,
+            // orderError,
+            bookingStep,
+            handleChange,
+            handleSubmit,
+            checkoutData,
+            handleBackStep,
+            handleNextStep,
+            // handleCheckout,
+            handleSelectChange,
+          })}
+          </Paper>
+        </Container>
+      </div>
     );
 };
+
 
 export default Checkout;

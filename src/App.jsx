@@ -12,7 +12,7 @@ const App = () => {
   const [basketData, setBasketData] = useState({});
 
   const fetchProducts = async () => {
-    const response = await commerce.products.list();
+  const response = await commerce.products.list();
     setProducts((response && response.data) || []);
   };
 

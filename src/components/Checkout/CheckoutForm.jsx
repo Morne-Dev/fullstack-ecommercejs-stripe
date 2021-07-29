@@ -11,10 +11,8 @@ import { Link } from "react-router-dom";
 
 const CheckoutForm = ({
     user = {},
-    orderInfo,
     handleChange,
     handleSubmit,
-    checkoutData,
     handleSelectChange,
 }) => (
     <form onSubmit={handleSubmit} autoComplete="off">
